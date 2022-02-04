@@ -1,5 +1,5 @@
 import "./App.css";
-import Carcasom from "./Components/Carcasom";
+import Carcasom from "./Components/Carcasom.tsx";
 
 function App() {
   return (
