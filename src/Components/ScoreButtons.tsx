@@ -29,7 +29,7 @@ interface ScoreColumnProps {
   onClick: (type: string, value: number) => void;
 }
 
-function ScoreColumn({ type, values, onClick }) {
+function ScoreColumn({ type, values, onClick }: ScoreColumnProps) {
   return (
     <>
       <Icon name={icons[type]} size="huge" />
