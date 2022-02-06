@@ -1,14 +1,14 @@
 import { Card, Grid } from "semantic-ui-react";
 import * as React from "react";
-import { selectPlayers, selectUserScore } from "./scoreSlice";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectCurrentPlayer, setCurrentPlayer } from "./currentPlayerSlice";
+import { selectPlayerScore } from "./HistorySlice";
 
 /**
  * Set up the score board
  */
 export default function ScoreBoard() {
-  const players = useAppSelector(selectPlayers);
+  const players = ["Wouter", "Nel"];
   return (
     <Grid columns={2} centered>
       {players.map((name) => (
@@ -25,7 +25,7 @@ interface ScoreProps {
 }
 
 function Score({ name }: ScoreProps) {
-  const score = useAppSelector(selectUserScore(name));
+  const score = useAppSelector(selectPlayerScore(name));
   const currentPlayer = useAppSelector(selectCurrentPlayer);
   const dispatch = useAppDispatch();
 

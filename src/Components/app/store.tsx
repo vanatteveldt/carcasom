@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import scoreReducer from "../scoreSlice";
 import currentPlayerReducer from "../currentPlayerSlice";
+import historyReducer from "../HistorySlice";
 
 export const store = configureStore({
   reducer: {
-    score: scoreReducer,
     currentPlayer: currentPlayerReducer,
+    history: historyReducer,
   },
 });
 
