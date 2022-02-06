@@ -1,4 +1,5 @@
 import { Button, Grid, Icon } from "semantic-ui-react";
+import { SemanticICONS } from "semantic-ui-react";
 
 interface ScoreButtonsProps {
   scoring: { [type: string]: number[] };
@@ -17,10 +18,10 @@ export default function ScoreButtons({ scoring, onClick }: ScoreButtonsProps) {
   );
 }
 
-const icons = {
-  weg: "road",
-  stad: "building",
-  klooster: "warehouse",
+const icons: { [key: string]: SemanticICONS } = {
+  weg: "road" as SemanticICONS,
+  stad: "building" as SemanticICONS,
+  klooster: "warehouse" as SemanticICONS,
 };
 
 interface ScoreColumnProps {
