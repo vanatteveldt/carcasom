@@ -35,9 +35,15 @@ function ScoreColumn({ type, values }: ScoreColumnProps) {
   const dispatch = useAppDispatch();
   const player = useAppSelector(selectCurrentPlayer);
 
+  const showPopup = () => {
+    const score = prompt("How many points?");
+    if (score != null)
+      dispatch(addAction({ player, type, score: parseInt(score) }));
+  };
+
   return (
     <>
-      <Icon name={type_icons[type]} size="huge" />
+      <Icon name={type_icons[type]} size="huge" onClick={() => showPopup()} />
       <br />
       {values.map((score, i) => (
         <Button
