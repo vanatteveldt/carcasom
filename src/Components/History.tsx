@@ -6,7 +6,6 @@ import {
   selectHistory,
   Action,
 } from "./HistorySlice";
-import { type_icons } from "./ScoreButtons";
 
 export default function History() {
   const history = useAppSelector(selectHistory);
@@ -15,8 +14,7 @@ export default function History() {
   const future_indices = Array.from(history.future.keys()).reverse();
   const item_content = (action: Action) => (
     <>
-      {action.player}&nbsp;
-      <Icon name={type_icons[action.type]} />
+      {action.player.name}&nbsp;
       {action.score}
     </>
   );

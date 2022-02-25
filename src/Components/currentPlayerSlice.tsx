@@ -4,7 +4,7 @@ import { RootState } from "./app/store";
 interface CurrentPlayerState {
   player: string;
 }
-const initialState: CurrentPlayerState = { player: "Wouter" };
+const initialState: CurrentPlayerState = { player: "Suzan" };
 
 export const currentPlayerSlice = createSlice({
   name: "currentPlayer",

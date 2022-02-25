@@ -1,19 +1,20 @@
-import { Card, Grid } from "semantic-ui-react";
+import { Card, Grid, Header } from "semantic-ui-react";
 import * as React from "react";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { selectCurrentPlayer, setCurrentPlayer } from "./currentPlayerSlice";
 import { selectPlayerScore } from "./HistorySlice";
+import { Player, selectPlayers } from "./PlayersSlice";
 
 /**
  * Set up the score board
  */
 export default function ScoreBoard() {
-  const players = ["Wouter", "Nel"];
+  const players = useAppSelector(selectPlayers);
   return (
     <Grid columns={2} centered>
-      {players.map((name) => (
-        <Grid.Column key={name}>
-          <Score name={name} />
+      {[players[0], players[1]].map((player) => (
+        <Grid.Column key={player.name}>
+          <Score player={player} />
         </Grid.Column>
       ))}
     </Grid>
@@ -21,22 +22,26 @@ export default function ScoreBoard() {
 }
 
 interface ScoreProps {
-  name: string;
+  player: Player;
 }
 
-function Score({ name }: ScoreProps) {
-  const score = useAppSelector(selectPlayerScore(name));
+const COLORS: { [name: string]: string } = {
+  red: "#faa",
+  green: "lightgreen",
+};
+
+export function Score({ player }: ScoreProps) {
+  const score = useAppSelector(selectPlayerScore(player));
   const currentPlayer = useAppSelector(selectCurrentPlayer);
   const dispatch = useAppDispatch();
-
   return (
-    <Card
-      style={{ backgroundColor: name === currentPlayer ? "lightgreen" : null }}
-      color={name === currentPlayer ? "green" : null}
-      onClick={() => dispatch(setCurrentPlayer({ player: name }))}
-    >
-      <Card.Header>{name}</Card.Header>
-      <Card.Content>{score}</Card.Content>
+    <Card style={{ backgroundColor: `${COLORS[player.color]}` }}>
+      <Card.Header style={{ textAlign: "center" }}>
+        <Header>{player.name}</Header>
+      </Card.Header>
+      <Card.Content style={{ textAlign: "center" }}>
+        <Header style={{ fontSize: "200%" }}>{score}</Header>
+      </Card.Content>
     </Card>
   );
 }

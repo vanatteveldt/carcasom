@@ -1,10 +1,10 @@
-import { Checkbox, Segment } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 import { useAppSelector } from "./app/hooks";
 import History from "./History";
+import Menu from "./Menu";
 import ScoreBoard from "./ScoreBoard";
-import ScoreButtons from "./ScoreButtons";
+import ScoreGrid from "./ScoreGrid";
 import { selectFinalScoring } from "./ScoreOptions/OptionsSlice";
-import ScoreOptions from "./ScoreOptions/ScoreOptions";
 
 const scoring = {
   weg: [1, 2, 3, 4, 5, 6, 7, 8],
@@ -24,12 +24,11 @@ export default function Carcasom() {
     <div>
       <Segment>
         <ScoreBoard />
-        <br />
-        <ScoreOptions />
+        <Menu />
       </Segment>
 
       <Segment>
-        <ScoreButtons scoring={finalscoring ? final_scoring : scoring} />
+        <ScoreGrid />
       </Segment>
       <History />
     </div>

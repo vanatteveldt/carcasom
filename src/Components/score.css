@@ -1,0 +1,18 @@
+.scoreCol button {
+  width: 4.5em !important;
+}
+
+.scorerow {
+  display: flex;
+  padding-bottom: 0.75em;
+}
+.scoreCol {
+  flex-grow: 1;
+}
+
+.separator {
+  width: 3em;
+}
+.separator:last-child {
+  width: 0em;
+}
