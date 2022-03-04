@@ -2,27 +2,24 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
 interface OptionsState {
-  finalscoring: boolean;
+  battlemode: boolean;
 }
 
-const initialState: OptionsState = { finalscoring: false };
+const initialState: OptionsState = { battlemode: false };
 
 export const optionsSlice = createSlice({
   name: "options",
   initialState: initialState,
   reducers: {
-    setFinalScoring: (
-      state,
-      action: PayloadAction<{ finalscoring: boolean }>
-    ) => {
-      state.finalscoring = action.payload.finalscoring;
+    setBattleMode: (state, action: PayloadAction<{ battlemode: boolean }>) => {
+      state.battlemode = action.payload.battlemode;
     },
   },
 });
 
-export const selectFinalScoring = (state: RootState): boolean =>
-  state.options.finalscoring;
+export const selectBattleMode = (state: RootState): boolean =>
+  state.options.battlemode;
 
-export const { setFinalScoring } = optionsSlice.actions;
+export const { setBattleMode } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

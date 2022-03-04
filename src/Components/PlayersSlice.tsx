@@ -6,22 +6,39 @@ export interface Player {
   color: string;
 }
 
-interface Players {
-  0: Player;
-  1: Player;
+type Players = [Player, Player];
+
+const STORE_KEY = "carcasom_players";
+
+function read_localstorage(): Players {
+  const x = localStorage.getItem(STORE_KEY);
+  if (x == null)
+    return [
+      { name: "Player 1", color: "green" },
+      { name: "Player 2", color: "red" },
+    ];
+  const index = JSON.parse(x);
+  return index;
 }
 
-const initialData: Players = [
-  { name: "Suzan", color: "green" },
-  { name: "Nel", color: "red" },
-];
+function write_localstorage(players: Players): void {
+  localStorage.setItem(STORE_KEY, JSON.stringify(players));
+}
 
 export const playersSlice = createSlice({
   name: "players",
-  initialState: initialData,
-  reducers: {},
+  initialState: read_localstorage,
+  reducers: {
+    setPlayerName: (
+      state,
+      action: PayloadAction<{ index: number; name: string }>
+    ) => {
+      state[action.payload.index].name = action.payload.name;
+      write_localstorage(state);
+    },
+  },
 });
 
 export const selectPlayers = (state: RootState): Players => state.players;
 
-//export const { setPlayers } = playersSlice.actions;
+export const { setPlayerName } = playersSlice.actions;

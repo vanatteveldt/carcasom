@@ -16,3 +16,7 @@
 .separator:last-child {
   width: 0em;
 }
+
+.rotated {
+  transform: rotate(180deg);
+}

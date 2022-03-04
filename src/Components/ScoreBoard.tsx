@@ -1,9 +1,7 @@
 import { Card, Grid, Header } from "semantic-ui-react";
-import * as React from "react";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { selectCurrentPlayer, setCurrentPlayer } from "./currentPlayerSlice";
 import { selectPlayerScore } from "./HistorySlice";
-import { Player, selectPlayers } from "./PlayersSlice";
+import { Player, selectPlayers, setPlayerName } from "./PlayersSlice";
 
 /**
  * Set up the score board
@@ -12,9 +10,9 @@ export default function ScoreBoard() {
   const players = useAppSelector(selectPlayers);
   return (
     <Grid columns={2} centered>
-      {[players[0], players[1]].map((player) => (
+      {[players[0], players[1]].map((player, index) => (
         <Grid.Column key={player.name}>
-          <Score player={player} />
+          <Score index={index} player={player} />
         </Grid.Column>
       ))}
     </Grid>
@@ -23,6 +21,7 @@ export default function ScoreBoard() {
 
 interface ScoreProps {
   player: Player;
+  index: number;
 }
 
 const COLORS: { [name: string]: string } = {
@@ -30,12 +29,18 @@ const COLORS: { [name: string]: string } = {
   green: "lightgreen",
 };
 
-export function Score({ player }: ScoreProps) {
+export function Score({ player, index }: ScoreProps) {
   const score = useAppSelector(selectPlayerScore(player));
-  const currentPlayer = useAppSelector(selectCurrentPlayer);
   const dispatch = useAppDispatch();
+  function changeName() {
+    const newname = window.prompt(`Player ${index} name`, player.name);
+    if (newname != null) dispatch(setPlayerName({ index, name: newname }));
+  }
   return (
-    <Card style={{ backgroundColor: `${COLORS[player.color]}` }}>
+    <Card
+      style={{ backgroundColor: `${COLORS[player.color]}` }}
+      onClick={changeName}
+    >
       <Card.Header style={{ textAlign: "center" }}>
         <Header>{player.name}</Header>
       </Card.Header>
